@@ -1,5 +1,7 @@
 <?php
 session_start();
+// --- SIMULADOR DE LOGIN TEMPORAL PARA PRUEBAS ---
+$_SESSION['usuario_id'] = 1;
 // Autoload para cargar clases automáticamente
 spl_autoload_register(function($clase){
     $rutaBase = __DIR__ . '/../';
@@ -19,7 +21,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $controller = new \apps\usuarios\controladores\UsuarioController();
         $controller->procesarLogin();
     }
+    elseif ($modulo === 'usuarios' && $accion === 'eliminar') {
+        $controller = new \apps\usuarios\controladores\UsuarioController();
+        $controller->eliminarUsuarios($_POST['usuario_id'] ?? null);
+    }
+    elseif ($modulo === 'usuarios' && $accion === 'procesar') {
+        $controller = new \apps\usuarios\controladores\UsuarioController();
+        $controller->procesarUpdate();
+    }
+    elseif ($modulo === 'usuarios' && $accion === 'editar') {
+        $controller = new \apps\usuarios\controladores\UsuarioController();
+        $controller->editar();
+    }
+    elseif ($modulo === 'usuarios' && $accion === 'registro') {
+        $controller = new \apps\usuarios\controladores\UsuarioController();
+        $controller->guardar();
+    }
 }
+
 // Generar token CSRF si no existe
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -28,10 +47,6 @@ if (empty($_SESSION['csrf_token'])) {
 if ($modulo === 'usuarios' && $accion === 'login') {
     require_once __DIR__ . '/../apps/usuarios/vistas/login.php';
 } 
-elseif ($modulo === 'usuarios' && $accion === 'registro') {
-    require_once __DIR__ . '/../layouts/registro.php';
-
-}
 elseif ($modulo === 'usuarios' && $accion === 'logout') {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -57,6 +72,29 @@ elseif ($modulo === 'usuarios' && $accion === 'logout') {
     header("Location: index.php?modulo=usuarios&accion=login");
     exit();
 }
+elseif ($modulo === 'usuarios' && $accion === 'listar') {
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../apps/usuarios/vistas/listar.php';
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+elseif ($modulo === 'usuarios' && $accion === 'editar') {
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../apps/usuarios/vistas/editar.php';
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+elseif ($modulo=== 'usuarios' && $accion === 'registro') {
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../apps/usuarios/vistas/registro.php';
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+
+elseif ($modulo === 'dashboard' && $accion === 'home'){
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../layouts/home.php';
+    require_once __DIR__ . '/../layouts/footer.php';
+
+}
+
 /* elseif ($modulo === 'inventario' && $accion === 'lista') {
     // Aquí irás agregando tus módulos reales del sistema más adelante
     require_once __DIR__ . '/../layouts/header.php';
