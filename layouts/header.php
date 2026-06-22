@@ -55,7 +55,12 @@ if (!isset($_SESSION['usuario_id'])) {
 
             <li class="nav-item">
                 <a class="nav-link" href="index.php?modulo=dashboard&accion=home">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home-2">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                        <path d="M10 12h4v4h-4l0 -4" />
+                    </svg>
                     <span>Home</span>
                 </a>
             </li>
@@ -89,18 +94,27 @@ if (!isset($_SESSION['usuario_id'])) {
             </li>
             <hr class="sidebar-divider">
 
-            <div class="sidebar-heading">Interface</div>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-packages">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M7 16.5l-5 -3l5 -3l5 3v5.5l-5 3l0 -5.5" />
+                        <path d="M2 13.5v5.5l5 3" />
+                        <path d="M7 16.545l5 -3.03" />
+                        <path d="M17 16.5l-5 -3l5 -3l5 3v5.5l-5 3l0 -5.5" />
+                        <path d="M12 19l5 3" />
+                        <path d="M17 16.5l5 -3" />
+                        <path d="M12 13.5v-5.5l-5 -3l5 -3l5 3v5.5" />
+                        <path d="M7 5.03v5.455" />
+                        <path d="M12 8l5 -3" />
+                    </svg>
+                    <span>Productos</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <a class="collapse-item" href="index.php?modulo=productos&accion=listar">Gestionar Productos</a>
+                        <a class="collapse-item" href="cards.html">Gestionar Categorias</a>
                     </div>
                 </div>
             </li>
