@@ -1,7 +1,7 @@
 <?php
 session_start();
 // --- SIMULADOR DE LOGIN TEMPORAL PARA PRUEBAS ---
-$_SESSION['usuario_id'] = 1;
+$_SESSION['usuario_id'] = 2;
 // Autoload para cargar clases automáticamente
 spl_autoload_register(function($clase){
     $rutaBase = __DIR__ . '/../';
@@ -36,6 +36,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif ($modulo === 'usuarios' && $accion === 'registro') {
         $controller = new \apps\usuarios\controladores\UsuarioController();
         $controller->guardar();
+    }
+
+    //agregado para ventas, buscar producto
+    elseif ($modulo === 'ventas'&& $accion === 'buscarProducto') {
+        $controller = new \apps\ventas\controladores\VentaController();
+        $controller->buscarProducto();
+        exit();
+    }
+
+    //procesar la venta
+    elseif($modulo === 'ventas' && $accion == 'procesar') {
+        $controller = new \apps\ventas\controladores\VentaController();
+        $controller->procesar();
     }
 }
 
@@ -93,6 +106,13 @@ elseif ($modulo === 'dashboard' && $accion === 'home'){
     require_once __DIR__ . '/../layouts/home.php';
     require_once __DIR__ . '/../layouts/footer.php';
 
+}
+
+//agregado para ventas
+elseif ($modulo === 'ventas' && $accion === 'crear') {
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../apps/ventas/vistas/crear.php';
+    require_once __DIR__ . '/../layouts/footer.php';
 }
 
 /* elseif ($modulo === 'inventario' && $accion === 'lista') {

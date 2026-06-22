@@ -72,6 +72,21 @@ if (!isset($_SESSION['usuario_id'])) {
                     <span>Usuarios</span>
                 </a>
             </li>
+
+            
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentas" aria-expanded="true" aria-controls="collapseVentas">
+                    <i class="fas fa-fw fa-cash-register"></i>
+                    <span>Ventas</span>
+                </a>
+                <div id="collapseVentas" class="collapse" aria-labelledby="headingVentas" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Gestión de Ventas:</h6>
+                        <a class="collapse-item" href="index.php?modulo=ventas&accion=crear">Nueva Venta</a>
+                    </div>
+                </div>
+            </li>
             <hr class="sidebar-divider">
 
             <div class="sidebar-heading">Interface</div>
