@@ -198,6 +198,18 @@ elseif ($modulo === 'ventas' && $accion === 'crear') {
     require_once __DIR__ . '/../layouts/footer.php';
 }
 
+elseif ($modulo === 'ventas' && $accion ==='historial') {
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../apps/ventas/vistas/historial.php';
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+
+elseif ($modulo === 'ventas' && $accion === 'detalle') {
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../apps/ventas/vistas/detalle.php';
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+
 /* elseif ($modulo === 'inventario' && $accion === 'lista') {
     // Aquí irás agregando tus módulos reales del sistema más adelante
     require_once __DIR__ . '/../layouts/header.php';

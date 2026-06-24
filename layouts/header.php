@@ -89,6 +89,7 @@ if (!isset($_SESSION['usuario_id'])) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Gestión de Ventas:</h6>
                         <a class="collapse-item" href="index.php?modulo=ventas&accion=crear">Nueva Venta</a>
+                        <a class="collapse-item" href="index.php?modulo=ventas&accion=historial">Historial de Ventas</a>
                     </div>
                 </div>
             </li>

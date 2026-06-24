@@ -104,6 +104,23 @@ class VentaController {
         }
     }
 
+
+    //aca esta el puente que usamos para tener el historial de la ventas
+    //le pide al modelo ventaModel el historial y se lo pasa a la vista que lo que vemos en la pantalla
+    public function obtenerHistorial() {
+        $modelo = new \apps\ventas\modelos\ventaModel();
+        return $modelo->obtenerHistorialVentas();
+    }
+
+    public function obtenerInfoVenta($id_venta){
+        $modelo = new \apps\ventas\modelos\ventaModel();
+        return $modelo->obtenerInfoVenta($id_venta);
+    }
+
+    function obtenerDetalleVenta($id_venta) {
+        $modelo = new \apps\ventas\modelos\ventaModel();
+        return $modelo->obtenerDetallesVenta($id_venta);
+    }
         
         
     }
