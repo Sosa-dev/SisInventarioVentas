@@ -16,6 +16,14 @@ $accion = $_GET['accion'] ?? 'login';
 $parametro = $_GET['id'] ?? null;
 
 
+    //agregado para ventas, buscar producto
+    
+
+    //procesar la venta
+   
+
+    
+
 
 // Generar token CSRF si no existe
 if (empty($_SESSION['csrf_token'])) {
@@ -103,10 +111,10 @@ if($modulo ==='usuarios'){
         case 'GET':
             if($accion==='listar'){
                 require_once __DIR__ . '/../layouts/header.php';
-                require_once __DIR__ . '/../apps/productos/vistas/listar.php';
-                require_once __DIR__ . '/../layouts/footer.php';
-            }elseif($accion==='guardar'){
-                require_once __DIR__ . '/../layouts/header.php';
+                    require_once __DIR__ . '/../apps/productos/vistas/listar.php';
+                    require_once __DIR__ . '/../layouts/footer.php';
+                }elseif($accion==='guardar'){
+                    require_once __DIR__ . '/../layouts/header.php';
                 require_once __DIR__ . '/../apps/productos/vistas/ingreso.php';
                 require_once __DIR__ . '/../layouts/footer.php';
             }
@@ -151,6 +159,11 @@ if($modulo ==='usuarios'){
                 require_once __DIR__ . '/../apps/ventas/vistas/crear.php';
                 require_once __DIR__ . '/../layouts/footer.php';
             }
+            elseif ($accion === 'buscarProducto') {
+                $controller = new \apps\ventas\controladores\VentaController();
+                $controller->buscarProducto();
+                exit();
+            }
 
             break;
         case 'POST':
@@ -159,15 +172,114 @@ if($modulo ==='usuarios'){
                 $controller = new \apps\ventas\controladores\VentaController();
                 $controller->buscarProducto();
                 exit();
-            }
+            } 
 
-            //procesar la venta
-            elseif($modulo === 'ventas' && $accion == 'procesar') {
+            elseif($accion == 'procesar') {
                 $controller = new \apps\ventas\controladores\VentaController();
                 $controller->procesar();
             }
         }
+}elseif($modulo==='categorias'){
+    if ($accion === 'listar') {
+        require_once __DIR__ . '/../layouts/header.php';
+
+        $controller = new \apps\productos\controladores\CategoriaController();
+        $controller->index();
+        require_once __DIR__ . '/../layouts/footer.php';
+    }
+    elseif ($accion === 'crear') {
+        require_once __DIR__ . '/../layouts/header.php';
+        $controller = new \apps\productos\controladores\CategoriaController();
+        $controller->crear();
+        require_once __DIR__ . '/../layouts/footer.php';
+    }
+    elseif ($modulo === 'categorias' && $accion === 'guardar') {
+        $controller = new \apps\productos\controladores\CategoriaController();
+        $controller->guardar();
+       
+        exit();
+    }
+
+
+    elseif ($accion === 'editar') {
+        require_once __DIR__ . '/../layouts/header.php';
+        $controller = new \apps\productos\controladores\CategoriaController();
+        $controller->editar();
+        require_once __DIR__ . '/../layouts/footer.php';
+    }
+    elseif ($accion === 'eliminar') {
+            $controller = new \apps\productos\controladores\CategoriaController();
+            $controller->eliminar();
+            exit();
+        }
+
+    elseif ($accion === 'actualizar') {
+    $controller = new \apps\productos\controladores\CategoriaController();
+    $controller->actualizar();
+        exit();
+    }
 }
+
+
+
+     
+ 
+
+
+        // require_once __DIR__ . '/../layouts/header.php';
+        // require_once __DIR__ . '/../layouts/404.php';
+        // require_once __DIR__ . '/../layouts/footer.php';
+
+
+
+
+    // elseif ($modulo === 'dashboard' && $accion === 'home'){
+    //     require_once __DIR__ . '/../layouts/header.php';
+    //     require_once __DIR__ . '/../layouts/home.php';
+    //     require_once __DIR__ . '/../layouts/footer.php';
+
+    // }
+    // elseif ($modulo === 'productos' && $accion === 'listar'){
+    //         
+    //     }
+
+    /* elseif ($modulo === 'inventario' && $accion === 'lista') {
+        // Aquí irás agregando tus módulos reales del sistema más adelante
+        require_once __DIR__ . '/../layouts/header.php';
+        require_once __DIR__ . '/../apps/inventario/vistas/lista.php';
+        require_once __DIR__ . '/../layouts/footer.php';
+    } 
+    */
+    
+
+
+
+//agregado para ventas
+elseif ($modulo === 'ventas' && $accion === 'crear') {
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../apps/ventas/vistas/crear.php';
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+
+elseif ($modulo === 'ventas' && $accion ==='historial') {
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../apps/ventas/vistas/historial.php';
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+
+elseif ($modulo === 'ventas' && $accion === 'detalle') {
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../apps/ventas/vistas/detalle.php';
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+
+/* elseif ($modulo === 'inventario' && $accion === 'lista') {
+    // Aquí irás agregando tus módulos reales del sistema más adelante
+    require_once __DIR__ . '/../layouts/header.php';
+    require_once __DIR__ . '/../apps/inventario/vistas/lista.php';
+    require_once __DIR__ . '/../layouts/footer.php';
+} 
+*/
 else {
     require_once __DIR__ . '/../layouts/header.php';
     require_once __DIR__ . '/../layouts/404.php';

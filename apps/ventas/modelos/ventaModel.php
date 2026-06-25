@@ -49,10 +49,10 @@ class ventaModel {
         }
     }
 
-    //esta funcion es la que se encargara de registra la venta tabnto el la tabla ventas junto a su detalle_ventas
+    //esta funcion es la que se encargara de registra la venta tanto en la tabla ventas junto a su detalle_ventas
     public function registrarVenta($cliente_id, $usuario_id, $productos) {
         try {
-            // Iniciamos la transacción: esto no indica que si algo sale mal no se hara la transcaccion y si todo esta bien ahi si.
+            // Iniciamos la transacción, esto no indica que si algo sale mal no se hara la transcaccion y si todo esta bien ahi si.
             $this->db->beginTransaction();
 
             //  Calcular totales Aplicamos un IVA estándar del 13%
@@ -115,10 +115,63 @@ class ventaModel {
 
         } catch (\PDOException $e) {
             // Si algo falla o un error SQL deshacemos todo
-            $this->db->rollBack();
+            $this->db->rollBack(); 
             return $e->getMessage();
         }
     }
+
+    //esta es la funcion que se encarga de obtener el historial de ventas directamente de la base de datos
+    public function obtenerHistorialVentas() {
+        try {
+            // Relacionamos usando un left join 3 tablas ventas, clientes y usuarios
+            $sql = "SELECT v.id_venta, v.fecha_venta, v.total, 
+                           c.nombre_completo AS cliente, 
+                           u.nombre_completo AS cajero
+                    FROM ventas v
+                    LEFT JOIN clientes c ON v.id_cliente = c.id_cliente
+                    LEFT JOIN usuarios u ON v.id_usuario = u.id_usuario
+                    ORDER BY v.fecha_venta DESC"; // Las ventas mas recientes primero
+                    
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            return ["error" => $e->getMessage()];
+        }
+    }
+
+    //obtendra los datos especificos de cada venta
+    public function obtenerInfoVenta($id_venta) {
+        try {
+            $sql = "SELECT v.*, c.nombre_completo AS cliente, c.telefono, u.nombre_completo AS cajero 
+                    FROM ventas v
+                    LEFT JOIN clientes c ON v.id_cliente = c.id_cliente
+                    LEFT JOIN usuarios u ON v.id_usuario = u.id_usuario
+                    WHERE v.id_venta = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(['id' => $id_venta]);
+            return $stmt->fetch(\PDO::FETCH_ASSOC); // Usar fetch porque es un solo registro
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+    // Obtiene la lista de zapatos que se compraron en ese transaccion
+    public function obtenerDetallesVenta($id_venta) {
+        try {
+            // Unimos detalle_ventas con productos para sacar el nombre y código del calzado
+            $sql = "SELECT d.*, p.codigo, p.nombre 
+                    FROM detalle_ventas d
+                    INNER JOIN productos p ON d.id_producto = p.id_producto
+                    WHERE d.id_venta = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(['id' => $id_venta]);
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC); // fetchAll porque son varios productos
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
+
 
 
 
