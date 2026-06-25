@@ -69,7 +69,7 @@ class VentaController {
 
         }
 
-        //este metodo se encargara de recibila los datos del producto que tenemos en formatos JSON
+        //este metodo se encargara de recibir los datos del producto que tenemos en formatos JSON
         //para preparar la alerta de que fue exitosa la compra
         public function procesar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

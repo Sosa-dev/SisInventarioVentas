@@ -88,15 +88,15 @@ class CategoriaController {
             $modelo = new categoriaModel();
             // Le pasamos el nombre de la columna llave primaria y el id
           try {
-                // Intentamos borrar usando el método genérico de tu compañero
+                // Intentamos borrar el modelo general
                 $modelo->delete('id_categoria', $id);
                 
-                // Si se elimina con éxito, redirigimos de inmediato
+                
                 header("Location: index.php?modulo=categorias&accion=listar");
                 exit();
                 
             } catch (\PDOException $e) {
-                // Si la base de datos lanza un código 23000, significa que hay productos usando esta categoría
+                // Si la base de datos es porque hay producto que estan referenciando a esa categoria
                 if ($e->getCode() == 23000) {
                     echo "<!DOCTYPE html>
                     <html lang='es'>
@@ -110,7 +110,7 @@ class CategoriaController {
                                 icon: 'error',
                                 title: '¡No se puede eliminar!',
                                 text: 'Esta categoría tiene productos asociados en el inventario. Para borrarla, primero debes cambiar o eliminar esos productos.',
-                                confirmButtonColor: '#e74a3b', // Color rojo de peligro
+                                confirmButtonColor: '#e74a3b',
                                 confirmButtonText: 'Entendido'
                             }).then(() => {
                                 window.location.href = 'index.php?modulo=categorias&accion=listar';

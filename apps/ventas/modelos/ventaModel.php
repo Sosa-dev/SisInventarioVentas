@@ -16,7 +16,7 @@ class ventaModel {
     }
 
     /**
-     * 1. Traer todos los clientes activos para el select de la factura
+     *  Traer todos los clientes activos para el select de la factura
      */
     public function obtenerClientesVenta() {
         try {
@@ -30,7 +30,7 @@ class ventaModel {
     }
 
     /**
-     * 2. Buscar un producto en el inventario por código o nombre para la realizacion de la venta
+     *  Buscar un producto en el inventario por código o nombre para la realizacion de la venta
      */
     public function buscarProducto($terminoBusqueda) {
         try {
