@@ -20,7 +20,7 @@
                                         <option value="2" <?php echo ($_SESSION['usuario_editar']['id_rol'] == 2) ? 'selected' : ''; ?>>
                                             Vendedor
                                         </option>
-                                        
+                                           
                                         <option value="3" <?php echo ($_SESSION['usuario_editar']['id_rol'] == 3) ? 'selected' : ''; ?>>
                                             Consultor
                                         </option>

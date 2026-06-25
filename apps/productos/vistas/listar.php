@@ -10,6 +10,31 @@ $productos = $productoController->listar();
                     <!-- Page Heading -->
                      
                     <h1 class="h3 mb-4 text-gray-800">Productos</h1>
+                    <?php if (isset($_SESSION['success_mensaje'])): ?>
+                                        <div class="alert alert-success" role="alert">
+                                            <i class="fas fa-exclamation-triangle mr-1"></i>
+                                            <?php 
+                                                echo $_SESSION['success_mensaje']; 
+                                                unset($_SESSION['success_mensaje']); // Lo borramos para que no vuelva a aparecer al recargar
+                                            ?>
+                                            <button type="text" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                        <?php endif; ?>
+
+                        <?php if (isset($_SESSION['error_mensaje'])): ?>
+                                        <div class="alert alert-danger alert-dismissible fade show small" role="alert">
+                                            <i class="fas fa-exclamation-triangle mr-1"></i>
+                                            <?php 
+                                                echo $_SESSION['error_mensaje']; 
+                                                unset($_SESSION['error_mensaje']); // Lo borramos para que no vuelva a aparecer al recargar
+                                            ?>
+                                            <button type="text" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    <?php endif; ?>
                     <a href="index.php?modulo=productos&accion=guardar" class="btn btn-primary btn-user btn-block">
                         Agregar Nuevo Producto
                     </a>
@@ -40,6 +65,7 @@ $productos = $productoController->listar();
                                             <th>Nombre</th>
                                             <th>Precio</th>
                                             <th>Stock</th>
+                                            <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -50,6 +76,7 @@ $productos = $productoController->listar();
                                             <th>Nombre</th>
                                             <th>Precio</th>
                                             <th>Stock</th>
+                                            <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
@@ -62,10 +89,13 @@ $productos = $productoController->listar();
                                             <td><?php echo htmlspecialchars($producto['nombre']); ?></td>
                                             <td><?php echo htmlspecialchars('$'.$producto['precio']); ?></td>
                                             <td><?php echo htmlspecialchars($producto['stock']); ?></td>
-                                            <td class="d-flex flex-row">
+                                            <!-- <td><?php echo htmlspecialchars($producto['estado']); ?></td> -->
+                                            <td><?php echo htmlspecialchars($producto['estado'] ? 'Activo' : 'Inactivo'); ?></td>
 
-                                                <form action="index.php?modulo=productos&accion=editar" method="put"><input type="hidden" name="producto_id" value="<?php echo $producto['id_producto']; ?>"><input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"><button type="submit" class="btn btn-sm btn-primary m-2">Editar</button></form>
-                                                <form action="index.php?modulo=productos&accion=eliminar" method="delete"><input type="hidden" name="producto_id" value="<?php echo $producto['id_producto']; ?>"><input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"><button type="submit" class="btn btn-sm btn-danger m-2">Eliminar</button></form>
+                                            <td class="d-flex flex-row">
+                                                <a href="index.php?modulo=productos&accion=editar&id=<?php echo $producto['id_producto']; ?>" class="btn btn-sm btn-primary m-2">Editar</a>
+                                                <!-- <form action="index.php?modulo=productos&accion=editar&id=" method="GET"><input type="hidden" name="producto_id" value="<?php echo $producto['id_producto']; ?>"><button type="submit" class="btn btn-sm btn-primary m-2">Editar</button></form>
+                                                <form action="index.php?modulo=productos&accion=eliminar" method="POST"><input type="hidden" name="producto_id" value="<?php echo $producto['id_producto']; ?>"><input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"><button type="submit" class="btn btn-sm btn-danger m-2">Eliminar</button></form> -->
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>
