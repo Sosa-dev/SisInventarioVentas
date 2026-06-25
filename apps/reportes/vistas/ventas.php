@@ -11,12 +11,6 @@ $ventas = $ventaController->obtenerHistorial();
         <h1 class="h3 mb-0 text-gray-800">
             <i class="fas fa-clipboard-list text-primary"></i> Historial de Ventas
         </h1>
-        <?php if($_SESSION['usuario_rol']==1||$_SESSION['usuario_rol']==2):?>
-
-            <a href="index.php?modulo=ventas&accion=crear" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
-                <i class="fas fa-plus fa-sm text-white-50"></i> Nueva Venta
-            </a>
-        <?php endif;?>
     </div>
 
     <div class="card shadow mb-4">
@@ -40,7 +34,6 @@ $ventas = $ventaController->obtenerHistorial();
                             <th>Cajero</th>
                             <th class="text-right">Total Cobrado</th>
                             <th class="text-center">Estado</th>
-                            <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,11 +64,7 @@ $ventas = $ventaController->obtenerHistorial();
                                             <i class="fas fa-check"></i> Pagado
                                         </span>
                                     </td>
-                                    <td class="align-middle text-center">
-                                        <a href="index.php?modulo=ventas&accion=detalle&id=<?php echo $venta['id_venta']; ?>" class="btn btn-info btn-sm shadow-sm" title="Ver Detalle">
-                                            <i class="fas fa-eye"></i> Detalle
-                                        </a>
-                                    </td>
+                                   
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>

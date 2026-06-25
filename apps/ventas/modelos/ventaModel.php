@@ -172,6 +172,40 @@ class ventaModel {
         }
     }
 
+    public function getResumenVendedorHoy($id_vendedor) {
+        $sql = "SELECT SUM(total) as mi_total, COUNT(*) as mis_tickets 
+                FROM ventas 
+                WHERE DATE(fecha_venta) = CURRENT_DATE() AND id_usuario = :id_vendedor";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_vendedor', $id_vendedor, \PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $resultado = $stmt->fetch(\PDO::FETCH_ASSOC);
+        
+        // Retornamos con valores por defecto en caso de que devuelva null
+        return [
+            'mi_total' => $resultado['mi_total'] ?? 0,
+            'mis_tickets' => $resultado['mis_tickets'] ?? 0
+        ];
+    }
+
+    /**
+     * Obtiene las últimas 5 ventas realizadas únicamente por este vendedor.
+     */
+    public function getUltimasVentasVendedor($id_vendedor) {
+        $sql = "SELECT id_venta, total, fecha_venta 
+                FROM ventas 
+                WHERE id_usuario = :id_vendedor
+                ORDER BY fecha_venta DESC LIMIT 5";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id_vendedor', $id_vendedor, \PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
 
 
 

@@ -18,7 +18,7 @@ class usuarioModel {
     }
 
     public function listar(){
-        $sql = "SELECT * FROM usuarios";
+        $sql = "SELECT u.*, r.nombre AS role_nombre FROM usuarios u INNER JOIN roles r ON u.id_rol = r.id_rol";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }

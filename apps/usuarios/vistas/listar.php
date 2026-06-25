@@ -60,9 +60,9 @@ $usuarios = $usuarioController->listarUsuarios();
                                         <?php foreach($usuarios as $usuario): ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($usuario['nombre_completo']); ?></td>
-                                            <td><?php echo htmlspecialchars($usuario['id_rol']); ?></td>
+                                            <td><?php echo htmlspecialchars($usuario['role_nombre']); ?></td>
                                             <td><?php echo htmlspecialchars($usuario['correo']); ?></td>
-                                            <td><?php echo htmlspecialchars($usuario['estado']); ?></td>
+                                            <td><?php echo htmlspecialchars($usuario['estado'] ? 'Activo' : 'Inactivo'); ?></td>
                                             <td><?php echo htmlspecialchars($usuario['created_at']); ?></td>
                                             <td class="d-flex flex-row">
 

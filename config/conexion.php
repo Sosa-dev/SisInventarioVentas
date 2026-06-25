@@ -2,7 +2,7 @@
 class Conexion {
     public static function conectar() {
         $host = 'localhost';
-        $db   = 'inventario_ventas';
+        $db   = 'php_inventario_venta';
         $user = 'root';
         $pass = '';
         $charset = 'utf8'; // Si tu MySQL es moderno, puedes usar 'utf8mb4'

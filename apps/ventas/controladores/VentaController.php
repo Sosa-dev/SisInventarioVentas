@@ -79,12 +79,20 @@ class VentaController {
             
             $cliente_id = $_POST['cliente_final_id'] ?? null;
             // Usamos el ID del usuario cajero que tiene la sesión iniciada
-            $usuario_id = $_SESSION['usuario_id'] ?? 1; 
+            $usuario_id = $_SESSION['usuario_id']; 
 
             // Validamos que nadie haya intentado mandar un formulario vacío
             if (empty($productos)) {
                 $_SESSION['error_mensaje'] = "La factura no puede estar vacía.";
                 header("Location: index.php?modulo=ventas&accion=crear");
+                exit();
+            }
+
+         
+
+            if (!$usuario_id) {
+                $_SESSION['error_mensaje'] = "Sesión expirada. Por favor, vuelva a iniciar sesión.";
+                header("Location: index.php?modulo=usuarios&accion=login");
                 exit();
             }
 
