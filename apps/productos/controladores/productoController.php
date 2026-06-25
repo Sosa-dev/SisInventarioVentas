@@ -64,3 +64,48 @@ class productoController{
 }
         
 }
+
+
+
+class CategoriaController {
+
+    public function index() {
+        //muestra la lista de categorias
+        $modelo = new categoriaModel();
+        $categorias = $modelo->getAll(); 
+        
+        require_once __DIR__ . '/../vistas/listar_categorias.php';
+    }
+    
+    // Método para mostrar el formulario
+    public function crear() {
+        require_once __DIR__ . '/../vistas/crear_categoria.php';
+    }
+
+    public function guardar() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $datos = [
+                'nombre'      => $_POST['nombre'],
+                'descripcion' => $_POST['descripcion']
+            ];
+
+            $modelo = new categoriaModel();
+            $modelo->insert($datos); 
+            
+            header("Location: index.php?modulo=categorias&accion=listar");
+            exit();
+        }
+
+    }
+
+    public function eliminar() {
+        $id = $_GET['id'] ?? null;
+        if ($id) {
+            $modelo = new categoriaModel();
+            $modelo->delete('id_categoria', $id);
+        }
+        header("Location: index.php?modulo=categorias&accion=listar");
+        exit();
+    }
+
+}

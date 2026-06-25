@@ -50,6 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $controller = new \apps\ventas\controladores\VentaController();
         $controller->procesar();
     }
+
+    elseif ($modulo === 'categorias' && $accion === 'guardar') {
+        $controller = new \apps\productos\controladores\CategoriaController();
+        $controller->guardar();
+       
+        exit();
+    }
+    
 }
 
 // Generar token CSRF si no existe
@@ -161,6 +169,42 @@ if($modulo ==='usuarios'){
             }
     }
 }
+
+elseif ($modulo === 'categorias' && $accion === 'listar') {
+    require_once __DIR__ . '/../layouts/header.php';
+
+    $controller = new \apps\productos\controladores\CategoriaController();
+    $controller->index();
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+elseif ($modulo === 'categorias' && $accion === 'crear') {
+    require_once __DIR__ . '/../layouts/header.php';
+    $controller = new \apps\productos\controladores\CategoriaController();
+    $controller->crear();
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+
+
+elseif ($modulo === 'categorias' && $accion === 'editar') {
+    require_once __DIR__ . '/../layouts/header.php';
+    $controller = new \apps\productos\controladores\CategoriaController();
+    $controller->editar();
+    require_once __DIR__ . '/../layouts/footer.php';
+}
+elseif ($modulo === 'categorias' && $accion === 'eliminar') {
+        $controller = new \apps\productos\controladores\CategoriaController();
+        $controller->eliminar();
+        exit();
+    }
+
+    elseif ($modulo === 'categorias' && $accion === 'actualizar') {
+    $controller = new \apps\productos\controladores\CategoriaController();
+    $controller->actualizar();
+    exit();
+    }
+
+     
+ 
 
 
         // require_once __DIR__ . '/../layouts/header.php';

@@ -115,7 +115,7 @@ if (!isset($_SESSION['usuario_id'])) {
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="index.php?modulo=productos&accion=listar">Gestionar Productos</a>
-                        <a class="collapse-item" href="cards.html">Gestionar Categorias</a>
+                        <a class="collapse-item" href="index.php?modulo=categorias&accion=listar">Gestionar Categorias</a>
                     </div>
                 </div>
             </li>

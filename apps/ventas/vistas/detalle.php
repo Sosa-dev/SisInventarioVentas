@@ -8,7 +8,7 @@ $ventaController = new VentaController();
 $infoVenta = $ventaController->obtenerInfoVenta($id_venta);
 $detalles = $ventaController->obtenerDetalleVenta($id_venta);
 
-// Si alguien pone un ID falso en la URL, lo regresamos al historial
+// Si alguien pone un ID falso en la URL lo regresamos al historial
 if (!$infoVenta) {
     echo "<script>window.location.href = 'index.php?modulo=ventas&accion=historial';</script>";
     exit();

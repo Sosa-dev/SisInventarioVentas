@@ -49,10 +49,10 @@ class ventaModel {
         }
     }
 
-    //esta funcion es la que se encargara de registra la venta tabnto el la tabla ventas junto a su detalle_ventas
+    //esta funcion es la que se encargara de registra la venta tanto en la tabla ventas junto a su detalle_ventas
     public function registrarVenta($cliente_id, $usuario_id, $productos) {
         try {
-            // Iniciamos la transacción: esto no indica que si algo sale mal no se hara la transcaccion y si todo esta bien ahi si.
+            // Iniciamos la transacción, esto no indica que si algo sale mal no se hara la transcaccion y si todo esta bien ahi si.
             $this->db->beginTransaction();
 
             //  Calcular totales Aplicamos un IVA estándar del 13%
@@ -115,7 +115,7 @@ class ventaModel {
 
         } catch (\PDOException $e) {
             // Si algo falla o un error SQL deshacemos todo
-            $this->db->rollBack();
+            $this->db->rollBack(); 
             return $e->getMessage();
         }
     }
@@ -150,7 +150,7 @@ class ventaModel {
                     WHERE v.id_venta = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->execute(['id' => $id_venta]);
-            return $stmt->fetch(\PDO::FETCH_ASSOC); // Usamos fetch() porque es un solo registro
+            return $stmt->fetch(\PDO::FETCH_ASSOC); // Usar fetch porque es un solo registro
         } catch (\PDOException $e) {
             return false;
         }
