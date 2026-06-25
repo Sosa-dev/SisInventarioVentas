@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // 2. Verificar si NO existe la variable de sesión que identifica al usuario
 if (!isset($_SESSION['usuario_id'])) {
-    
+    //$_SESSION['usuario_rol']
     // Opcional: Mensaje para notificar al usuario por qué fue expulsado
     $_SESSION['error_mensaje'] = "Acceso denegado. Por favor, inicie sesión primero.";
     
@@ -30,6 +30,8 @@ if (!isset($_SESSION['usuario_id'])) {
     <title>Sistema de Inventario y Ventas</title>
 
     <link href="/SisInventarioVentas/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/SisInventarioVentas/public/css/reporte.css" rel="stylesheet" type="text/css">
+
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <link href="/SisInventarioVentas/public/css/sb-admin-2.min.css" rel="stylesheet">
@@ -44,83 +46,122 @@ if (!isset($_SESSION['usuario_id'])) {
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php?modulo=dashboard&accion=home">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pointer-2">
-	<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-	<path d="M14.185 13.14l5.644 -2.202c1.625 -.634 1.538 -2.962 -.13 -3.473l-14.319 -4.382c-1.41 -.431 -2.73 .888 -2.298 2.298l4.382 14.318c.51 1.668 2.84 1.755 3.473 .13l2.202 -5.644a1.84 1.84 0 0 1 1.045 -1.045" />
-</svg>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M14.185 13.14l5.644 -2.202c1.625 -.634 1.538 -2.962 -.13 -3.473l-14.319 -4.382c-1.41 -.431 -2.73 .888 -2.298 2.298l4.382 14.318c.51 1.668 2.84 1.755 3.473 .13l2.202 -5.644a1.84 1.84 0 0 1 1.045 -1.045" />
+                    </svg>
                 </div>
                 <div class="sidebar-brand-text mx-3">SIINVEN</div>
             </a>
 
             <hr class="sidebar-divider my-0">
+            <?php if($_SESSION['usuario_rol']==1||$_SESSION['usuario_rol']==2||$_SESSION['usuario_rol']==3):?>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?modulo=dashboard&accion=home">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home-2">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                            <path d="M10 12h4v4h-4l0 -4" />
+                        </svg>
+                        <span>Home</span>
+                    </a>
+                </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?modulo=dashboard&accion=home">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-home-2">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-                        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-                        <path d="M10 12h4v4h-4l0 -4" />
-                    </svg>
-                    <span>Home</span>
-                </a>
-            </li>
-            <hr class="sidebar-divider">
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?modulo=usuarios&accion=listar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-search">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                        <path d="M6 21v-2a4 4 0 0 1 4 -4h1.5" />
-                        <path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                        <path d="M20.2 20.2l1.8 1.8" />
-                    </svg>
-                    <span>Usuarios</span>
-                </a>
-            </li>
+
+                <hr class="sidebar-divider">
+            <?php endif;?>
+
+            <?php if($_SESSION['usuario_rol']==1):?>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?modulo=usuarios&accion=listar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-search">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                            <path d="M6 21v-2a4 4 0 0 1 4 -4h1.5" />
+                            <path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                            <path d="M20.2 20.2l1.8 1.8" />
+                        </svg>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+            <?php endif;?>
 
             
+            <?php if($_SESSION['usuario_rol']==1||$_SESSION['usuario_rol']==2):?>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentas" aria-expanded="true" aria-controls="collapseVentas">
-                    <i class="fas fa-fw fa-cash-register"></i>
-                    <span>Ventas</span>
-                </a>
-                <div id="collapseVentas" class="collapse" aria-labelledby="headingVentas" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestión de Ventas:</h6>
-                        <a class="collapse-item" href="index.php?modulo=ventas&accion=crear">Nueva Venta</a>
-                        <a class="collapse-item" href="index.php?modulo=ventas&accion=historial">Historial de Ventas</a>
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVentas" aria-expanded="true" aria-controls="collapseVentas">
+                        <i class="fas fa-fw fa-cash-register"></i>
+                        <span>Ventas</span>
+                    </a>
+                    <div id="collapseVentas" class="collapse" aria-labelledby="headingVentas" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Gestión de Ventas:</h6>
+                            <a class="collapse-item" href="index.php?modulo=ventas&accion=crear">Nueva Venta</a>
+                            <a class="collapse-item" href="index.php?modulo=ventas&accion=historial">Historial de Ventas</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <hr class="sidebar-divider">
+                </li>
+                <hr class="sidebar-divider">
+            <?php endif;?>
+
+            <?php if($_SESSION['usuario_rol']==1):?>
 
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-packages">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M7 16.5l-5 -3l5 -3l5 3v5.5l-5 3l0 -5.5" />
-                        <path d="M2 13.5v5.5l5 3" />
-                        <path d="M7 16.545l5 -3.03" />
-                        <path d="M17 16.5l-5 -3l5 -3l5 3v5.5l-5 3l0 -5.5" />
-                        <path d="M12 19l5 3" />
-                        <path d="M17 16.5l5 -3" />
-                        <path d="M12 13.5v-5.5l-5 -3l5 -3l5 3v5.5" />
-                        <path d="M7 5.03v5.455" />
-                        <path d="M12 8l5 -3" />
-                    </svg>
-                    <span>Productos</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="index.php?modulo=productos&accion=listar">Gestionar Productos</a>
-                        <a class="collapse-item" href="index.php?modulo=categorias&accion=listar">Gestionar Categorias</a>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-packages">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M7 16.5l-5 -3l5 -3l5 3v5.5l-5 3l0 -5.5" />
+                            <path d="M2 13.5v5.5l5 3" />
+                            <path d="M7 16.545l5 -3.03" />
+                            <path d="M17 16.5l-5 -3l5 -3l5 3v5.5l-5 3l0 -5.5" />
+                            <path d="M12 19l5 3" />
+                            <path d="M17 16.5l5 -3" />
+                            <path d="M12 13.5v-5.5l-5 -3l5 -3l5 3v5.5" />
+                            <path d="M7 5.03v5.455" />
+                            <path d="M12 8l5 -3" />
+                        </svg>
+                        <span>Productos</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="index.php?modulo=productos&accion=listar">Gestionar Productos</a>
+                            <a class="collapse-item" href="index.php?modulo=categorias&accion=listar">Gestionar Categorias</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+                <hr class="sidebar-divider d-none d-md-block">
+            <?php endif;?>
 
-            <hr class="sidebar-divider d-none d-md-block">
+
+            <?php if($_SESSION['usuario_rol']==1||$_SESSION['usuario_rol']==3):?>
+
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReportes" aria-expanded="true" aria-controls="collapseReportes">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-smile">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M10 13h.01" />
+                            <path d="M14 13h.01" />
+                            <path d="M10 16a3.5 3.5 0 0 0 4 0" />
+                            <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+                            <path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2" />
+                        </svg>
+                        <span>Reportes</span>
+                    </a>
+                    <div id="collapseReportes" class="collapse" aria-labelledby="collapseReportes" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="index.php?modulo=dashboard&accion=reportes">Analisis</a>
+                            <a class="collapse-item" href="index.php?modulo=dashboard&accion=historial">Historial</a>
+                        </div>
+                        
+                    </div>
+                </li>
+            <?php endif;?>
 
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>

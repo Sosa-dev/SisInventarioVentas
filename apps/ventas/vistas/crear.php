@@ -14,7 +14,7 @@ $clientes = $ventaController->obtenerClientesVenta();
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Nueva Venta</h1>
-        <a href="index.php?modulo=ventas&accion=listar" class="btn btn-secondary btn-sm shadow-sm">
+        <a href="index.php?modulo=ventas&accion=historial" class="btn btn-secondary btn-sm shadow-sm">
             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Volver al Historial
         </a>
     </div>
