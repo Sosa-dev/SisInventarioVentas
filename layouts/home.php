@@ -131,10 +131,10 @@ $ventas_recientes = array_slice($ventas_de_hoy, 0, 5);
                             <span>Conexión BD:</span>
                             <span class="text-success fw-bold">● Activa</span>
                         </div>
-                        <div class="d-flex justify-content-between small">
+                        <!-- <div class="d-flex justify-content-between small">
                             <span>Zona Horaria:</span>
                             <span><?= date_default_timezone_get() ?></span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="mt-4">
                         <a href="index.php?modulo=dashboard&accion=reportes" class="btn btn-warning w-100 fw-bold">Ir a Auditoría Completa →</a>
